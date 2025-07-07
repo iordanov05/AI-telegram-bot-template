@@ -6,7 +6,8 @@ from aiogram.types import BotCommand
 
 from bot import config
 from bot.handlers import router
-from bot.services.logger import logger  
+from bot.services.logger import logger
+
 
 async def main() -> None:
     if config.BOT_TOKEN is None:
@@ -18,12 +19,11 @@ async def main() -> None:
     dp = Dispatcher(storage=MemoryStorage())
     dp.include_router(router)
 
-    await bot.set_my_commands([
-        BotCommand(command="/start", description="Начать чат")
-    ])
+    await bot.set_my_commands([BotCommand(command="/start", description="Начать чат")])
 
     logger.info("🤖 Bot is running and polling!")
     await dp.start_polling(bot)
+
 
 if __name__ == "__main__":
     asyncio.run(main())

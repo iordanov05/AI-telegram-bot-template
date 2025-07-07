@@ -4,12 +4,13 @@ from aiogram.fsm.context import FSMContext
 from bot.states import ChatStates
 from bot.keyboards import get_main_keyboard
 from bot.services.openrouter_client import get_openrouter_response
-from bot.services.logger import logger  
+from bot.services.logger import logger
 
 router = Router()
 
 # Memory context store
 user_histories: dict[int, list[dict[str, str]]] = {}
+
 
 @router.message(F.text == "/start")
 async def cmd_start(message: types.Message, state: FSMContext) -> None:
@@ -26,8 +27,9 @@ async def cmd_start(message: types.Message, state: FSMContext) -> None:
     ]
     await message.answer(
         "🤖 Привет! Я AI-бот на OpenRouter. Напиши что-нибудь!",
-        reply_markup=get_main_keyboard()
+        reply_markup=get_main_keyboard(),
     )
+
 
 @router.message(ChatStates.chatting)
 async def chat_handler(message: types.Message, state: FSMContext) -> None:
